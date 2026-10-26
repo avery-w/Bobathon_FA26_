@@ -20,32 +20,35 @@ Everything lives in your git repo. Sessions are JSON files under `.provenance/se
 
 ## Install
 
-Requirements: **Node 22+ recommended** (Node 20 is the minimum the code supports), `git`, and [pnpm](https://pnpm.io) (`corepack enable` provides the pinned version).
+Requirements: **Node 22 recommended** (CI tests Node 20 and 22; 20 is the minimum), `git`, and [pnpm](https://pnpm.io), which `corepack` provides at the version pinned in `package.json`.
+
+The supported route installs everything under your home directory and needs no admin rights. Run it in order, from a fresh shell:
 
 ```bash
 git clone --branch provenance https://github.com/avery-w/Bobathon_FA26.git provenance && cd provenance
-corepack enable       # if this fails with EACCES, use `corepack pnpm ...` instead of `pnpm ...`
+mkdir -p ~/.local/bin
+export PATH="$HOME/.local/bin:$PATH"          # also add this line to ~/.zshrc or ~/.bashrc
+corepack enable --install-directory ~/.local/bin   # puts `pnpm` in ~/.local/bin; plain `corepack enable` fails with EACCES when Node is installed system-wide
 pnpm install
 pnpm build
-```
 
-Put the two binaries on your `PATH`:
-
-```bash
-pnpm setup                                  # once, if pnpm has no global bin dir yet
-pnpm --dir packages/cli link --global       # provides `prov`
-pnpm --dir packages/mcp-server link --global  # provides `prov-mcp`
-prov --help
-```
-
-If linking fails, create two wrapper scripts in a folder that is on your `PATH` (here `~/.local/bin`). Use the full path to `node`, because GUI apps such as VS Code may not have it on their `PATH`:
-
-```bash
-mkdir -p ~/.local/bin
+# Wrapper scripts for the two binaries. They use the full path to `node`, because GUI apps such as VS Code may not have it on their PATH.
 printf '#!/bin/sh\nexec %s %s/packages/cli/dist/bin.js "$@"\n' "$(command -v node)" "$PWD" > ~/.local/bin/prov
 printf '#!/bin/sh\nexec %s %s/packages/mcp-server/dist/bin.js "$@"\n' "$(command -v node)" "$PWD" > ~/.local/bin/prov-mcp
 chmod +x ~/.local/bin/prov ~/.local/bin/prov-mcp
-export PATH="$HOME/.local/bin:$PATH"    # add this line to ~/.zshrc, then open a new terminal
+
+prov --help
+```
+
+`prov-mcp` is a stdio server and has no `--help`. To check it starts, run it inside any git repo with stdin closed: `prov-mcp --repo . < /dev/null` prints `prov-mcp running on stdio for <repo>` to stderr and exits.
+
+The wrappers point at this clone, so keep the folder and re-run `pnpm build` after you pull changes.
+
+**Alternative: `pnpm link --global`.** This only works if pnpm has a writable global directory (run `pnpm setup` once, and `pnpm` itself must be on your `PATH`; it failed with EACCES where `corepack enable` could not write). Then:
+
+```bash
+pnpm --dir packages/cli link --global           # provides `prov`
+pnpm --dir packages/mcp-server link --global    # provides `prov-mcp`
 ```
 
 ## 5-minute quickstart
@@ -132,7 +135,7 @@ For a live demo, use [`examples/reset-demo.sh`](examples/reset-demo.sh) instead.
 bash examples/reset-demo.sh
 ```
 
-Then open `~/prov-demo` in VS Code, choose **Trust Folder** when the Restricted Mode banner appears, and open `src/refund.ts`. To install the extension without a debug session: `cd packages/vscode-extension`, run `corepack pnpm dlx @vscode/vsce package --no-dependencies --allow-missing-repository`, then `code --install-extension provenance-vscode-0.1.0.vsix`.
+Then open `~/prov-demo` in VS Code, choose **Trust Folder** when the Restricted Mode banner appears, and open `src/refund.ts`. To install the extension: `pnpm --filter provenance-vscode package:vsix` (from the repo root; it builds and writes `packages/vscode-extension/provenance-vscode-0.1.0.vsix`), then `code --install-extension packages/vscode-extension/provenance-vscode-0.1.0.vsix`, or use **Extensions: Install from VSIX...** in the editor. Installing the `.vsix` is the supported route. Pressing F5 (launch configs in `.vscode/launch.json`, with a `preLaunchTask` that builds) is **untested**: it did nothing in Bob's IDE, which may not expose Run and Debug.
 
 Suggested three-minute walkthrough:
 
@@ -189,7 +192,7 @@ Package: `packages/vscode-extension` (built with esbuild into `dist/extension.js
 - **Status bar**: "AI: 42% of this file · 12 lines unreviewed"; click to open the report.
 - **Commands**: `Provenance: Show Session`, `Approve Session`, `Reject Session`, `Generate Report`.
 
-To try it, open `packages/vscode-extension` in VS Code and press F5 (Run Extension), then open the demo repo.
+To try it without installing, open `packages/vscode-extension` in VS Code and press F5 (Run Extension), then open the demo repo. F5 is untested (see Install); the `.vsix` route is the supported one.
 
 ## Report
 

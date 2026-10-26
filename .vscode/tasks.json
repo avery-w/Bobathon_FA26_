@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-provenance-extension",
+      "type": "shell",
+      "command": "pnpm --filter provenance-vscode build",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": "$tsc",
+      "presentation": { "reveal": "silent" }
+    }
+  ]
+}

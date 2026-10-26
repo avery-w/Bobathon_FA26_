@@ -5,6 +5,7 @@
       "name": "Run Provenance Extension (open ~/prov-demo)",
       "type": "extensionHost",
       "request": "launch",
+      "preLaunchTask": "build-provenance-extension",
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}/packages/vscode-extension",
         "${userHome}/prov-demo"

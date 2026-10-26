@@ -5,6 +5,7 @@
       "name": "Run Extension (open ~/prov-demo)",
       "type": "extensionHost",
       "request": "launch",
+      "preLaunchTask": "build-provenance-extension",
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}",
         "${userHome}/prov-demo"
