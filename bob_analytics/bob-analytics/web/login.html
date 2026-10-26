@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bob Analytics - Sign in</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="login-body">
+<main class="login-card">
+  <h1>Bob Analytics</h1>
+  <p class="muted">Enter the access code shown in the terminal where you started the dashboard.</p>
+  <form method="post" action="/login" autocomplete="off">
+    <label for="code">Access code</label>
+    <input id="code" name="code" type="password" required autofocus maxlength="128">
+    <button type="submit">Open dashboard</button>
+  </form>
+  <p class="error" role="alert">{{MESSAGE}}</p>
+</main>
+</body>
+</html>

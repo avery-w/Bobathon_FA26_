@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian-950: #06080f;
+  --color-obsidian-900: #0b0f19;
+  --color-obsidian-850: #101626;
+  --color-obsidian-800: #161e33;
+  --color-obsidian-700: #24304d;
+  --font-sans: -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root {
+  color-scheme: dark;
+  --background: #06080f;
+  --foreground: #f8fafc;
+}
+
+body {
+  background-color: #06080f;
+  color: #f8fafc;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+input[type="range"] {
+  accent-color: #3b82f6;
+}
+
+/* React Flow controls on the dark theme */
+.react-flow__controls-button {
+  background: #0f172a;
+  border-bottom: 1px solid #334155;
+  fill: #ffffff;
+}
+.react-flow__controls-button:hover {
+  background: #1e293b;
+}
+.react-flow__attribution {
+  display: none;
+}
