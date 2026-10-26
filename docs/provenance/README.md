@@ -109,7 +109,7 @@ Every command takes `--json` (machine-readable output) and `--repo <path>` (defa
 
 ## Demo
 
-[`examples/demo-repo.sh`](examples/demo-repo.sh) builds a small TypeScript payments service in `./demo-repo` with this history (no model calls; sessions are recorded with `prov record`):
+[`examples/demo-repo.sh`](../../examples/demo-repo.sh) builds a small TypeScript payments service in `./demo-repo` with this history (no model calls; sessions are recorded with `prov record`):
 
 | # | Commit | Session | Review |
 | --- | --- | --- | --- |
@@ -129,7 +129,7 @@ prov explain src/refund.ts:9      # session B, unreviewed
 prov report --format html --out report.html
 ```
 
-For a live demo, use [`examples/reset-demo.sh`](examples/reset-demo.sh) instead. It rebuilds `~/prov-demo` from scratch (safe to rerun between takes) and also writes `.vscode/settings.json` (so the extension finds `prov`) and `.bob/mcp.json` (so Bob can call `prov-mcp`). It needs `prov` and `prov-mcp` on `PATH`.
+For a live demo, use [`examples/reset-demo.sh`](../../examples/reset-demo.sh) instead. It rebuilds `~/prov-demo` from scratch (safe to rerun between takes) and also writes `.vscode/settings.json` (so the extension finds `prov`) and `.bob/mcp.json` (so Bob can call `prov-mcp`). It needs `prov` and `prov-mcp` on `PATH`.
 
 ```bash
 bash examples/reset-demo.sh
@@ -181,7 +181,7 @@ Suggested three-minute walkthrough:
 }
 ```
 
-To make an agent record every session and add the commit trailer, paste the paragraph from [`docs/agent-instructions.md`](docs/agent-instructions.md) into its custom instructions.
+To make an agent record every session and add the commit trailer, paste the paragraph from [`docs/agent-instructions.md`](agent-instructions.md) into its custom instructions.
 
 ## VS Code extension
 
@@ -196,7 +196,7 @@ To try it without installing, open `packages/vscode-extension` in VS Code and pr
 
 ## Report
 
-`prov report` starts with a one-line headline, for example "1 rejected session still in code (2 lines) · 29.5% of lines are unreviewed AI code"; the HTML version adds a bar split into human, AI reviewed and AI unreviewed lines ([screenshot](docs/report-headline.png)). Below that it covers lines at `HEAD`: totals and AI share, the unreviewed AI ranges as `file:start-end` with prompt excerpts (near the top, because that is what an auditor acts on), a per-file table sorted by unreviewed lines, and every session with the lines that still survive. Rejected sessions are listed first in their own block. `--format html` writes one self-contained file with inline CSS, no scripts and no external requests, so it can be attached to an audit ticket.
+`prov report` starts with a one-line headline, for example "1 rejected session still in code (2 lines) · 29.5% of lines are unreviewed AI code"; the HTML version adds a bar split into human, AI reviewed and AI unreviewed lines ([screenshot](report-headline.png)). Below that it covers lines at `HEAD`: totals and AI share, the unreviewed AI ranges as `file:start-end` with prompt excerpts (near the top, because that is what an auditor acts on), a per-file table sorted by unreviewed lines, and every session with the lines that still survive. Rejected sessions are listed first in their own block. `--format html` writes one self-contained file with inline CSS, no scripts and no external requests, so it can be attached to an audit ticket.
 
 ## How it works
 
