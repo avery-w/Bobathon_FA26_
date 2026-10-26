@@ -196,7 +196,7 @@ To try it without installing, open `packages/vscode-extension` in VS Code and pr
 
 ## Report
 
-`prov report` covers lines at `HEAD`: totals and AI share, the unreviewed AI ranges as `file:start-end` with prompt excerpts (near the top, because that is what an auditor acts on), a per-file table sorted by unreviewed lines, and every session with the lines that still survive. Rejected sessions are listed first in their own block. `--format html` writes one self-contained file with inline CSS, no scripts and no external requests, so it can be attached to an audit ticket.
+`prov report` starts with a one-line headline, for example "1 rejected session still in code (2 lines) · 29.5% of lines are unreviewed AI code"; the HTML version adds a bar split into human, AI reviewed and AI unreviewed lines ([screenshot](docs/report-headline.png)). Below that it covers lines at `HEAD`: totals and AI share, the unreviewed AI ranges as `file:start-end` with prompt excerpts (near the top, because that is what an auditor acts on), a per-file table sorted by unreviewed lines, and every session with the lines that still survive. Rejected sessions are listed first in their own block. `--format html` writes one self-contained file with inline CSS, no scripts and no external requests, so it can be attached to an audit ticket.
 
 ## How it works
 

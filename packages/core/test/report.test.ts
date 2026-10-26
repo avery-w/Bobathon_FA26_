@@ -7,6 +7,7 @@ import {
   escapeHtml,
   excerpt,
   generateReport,
+  headline,
   linkCommit,
   renderHtml,
   renderMarkdown,
@@ -83,6 +84,15 @@ describe("pure helpers", () => {
     expect(data.rejected.map((r) => `${r.file}:${r.start}-${r.end}`)).toEqual(["b.ts:3-3"]);
     expect(data.files.map((f) => f.file)).toEqual(["b.ts", "a.ts", "c.ts"]); // by unreviewed desc, then AI lines
     expect(Object.fromEntries(data.sessions.map((s) => [s.id, s.survivingLines]))).toEqual({ [ID_A]: 2, [ID_B]: 2, [ID_C]: 1 });
+  });
+
+  it("headline: pluralises, and says so when no rejected session is in code", () => {
+    const base = { generatedAt: "t", head: null, since: null, unreviewed: [], files: [], sessions: [] };
+    const summary = { totalLines: 8, aiLines: 4, aiPercent: 50, unreviewedAiLines: 2, unreviewedAiPercent: 25, sessionsByStatus: { unreviewed: 0, approved: 0, rejected: 0 }, sessionCount: 0 };
+    const r = (sessionId: string, start: number, end: number) => ({ file: "f", start, end, sessionId, promptExcerpt: "p", status: "rejected" as const });
+    expect(headline({ ...base, summary, rejected: [r("A", 1, 2)] })).toBe("1 rejected session still in code (2 lines) · 25% of lines are unreviewed AI code");
+    expect(headline({ ...base, summary, rejected: [r("A", 1, 1), r("B", 5, 6)] })).toBe("2 rejected sessions still in code (3 lines) · 25% of lines are unreviewed AI code");
+    expect(headline({ ...base, summary, rejected: [] })).toBe("No rejected sessions in code · 25% of lines are unreviewed AI code");
   });
 
   it("buildReportData treats a missing session file as unreviewed and handles empty repos", () => {
@@ -203,6 +213,31 @@ describe("report on a fixture repo (the demo history)", () => {
     expect(md).toContain("`src/refund.ts:9-10`");
     expect(md).toContain("PII — must not log card data.");
     expect(mask(md, d)).toMatchSnapshot();
+  });
+
+  it("headline names rejected sessions still in code with line counts, plus the unreviewed AI share", async () => {
+    const d = await generateReport(repo.root, { now: NOW });
+    const line = headline(d);
+    const rejectedLines = d.rejected.reduce((n, r) => n + r.end - r.start + 1, 0);
+    expect(rejectedLines).toBeGreaterThan(0);
+    expect(line).toBe(`1 rejected session still in code (${rejectedLines} line${rejectedLines === 1 ? "" : "s"}) · ${d.summary.unreviewedAiPercent}% of lines are unreviewed AI code`);
+    const md = renderMarkdown(d);
+    expect(md.split("\n")[4]).toBe(`**${line}**`); // right under the title and the "Generated" line
+    expect(md.indexOf(line)).toBeLessThan(md.indexOf("## Summary"));
+    expect(renderHtml(d)).toContain(`<p class="headline">${escapeHtml(line)}</p>`);
+  });
+
+  it("html has a split bar with inline widths only, and no script or http anywhere", async () => {
+    const d = await generateReport(repo.root, { now: NOW });
+    const html = renderHtml(d);
+    expect(html).not.toContain("<script");
+    expect(html).not.toContain("http");
+    const widths = [...html.matchAll(/<span style="width:([\d.]+)%;background:#[0-9a-f]{6}"><\/span>/g)].map((m) => Number(m[1]));
+    expect(widths).toHaveLength(3);
+    expect(widths.reduce((a, b) => a + b, 0)).toBeCloseTo(100, 0);
+    const sp = d.summary;
+    expect(html).toContain(`human ${sp.totalLines - sp.aiLines}`);
+    expect(html).toContain(`AI unreviewed ${sp.unreviewedAiLines}`);
   });
 
   it("html report matches the snapshot, is self-contained, and escapes untrusted text", async () => {

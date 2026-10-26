@@ -243,11 +243,34 @@ function mdCell(s: string): string {
   return s.replace(/\\/g, "\\\\").replace(/\|/g, "\\|").replace(/[\r\n]+/g, " ").replace(/</g, "&lt;");
 }
 
+const plural = (n: number, word: string): string => `${n} ${word}${n === 1 ? "" : "s"}`;
+
+/**
+ * One-line verdict for the top of the report: rejected sessions whose code is still at HEAD (with line counts)
+ * and the share of all lines that is AI code nobody approved. Built only from numbers, never from session text.
+ */
+export function headline(d: ReportData): string {
+  const rejectedSessions = new Set(d.rejected.map((r) => r.sessionId)).size;
+  const rejectedLines = d.rejected.reduce((n, r) => n + (r.end - r.start + 1), 0);
+  const rejected =
+    rejectedSessions === 0
+      ? "No rejected sessions in code"
+      : `${plural(rejectedSessions, "rejected session")} still in code (${plural(rejectedLines, "line")})`;
+  return `${rejected} · ${d.summary.unreviewedAiPercent}% of lines are unreviewed AI code`;
+}
+
+/** Line counts behind the split bar: human, AI approved, AI unreviewed (rejected counts as unreviewed, DECISIONS #29). */
+function split(s: ReportSummary): { human: number; reviewed: number; unreviewed: number } {
+  return { human: s.totalLines - s.aiLines, reviewed: s.aiLines - s.unreviewedAiLines, unreviewed: s.unreviewedAiLines };
+}
+
 export function renderMarkdown(d: ReportData): string {
   const s = d.summary;
   const out: string[] = [];
   out.push("# Provenance compliance report", "");
   out.push(`Generated ${d.generatedAt} · HEAD ${d.head ? d.head.slice(0, 7) : "(no commits)"}${d.since ? ` · sessions since ${day(d.since)}` : ""}`, "");
+
+  out.push(`**${headline(d)}**`, "");
 
   out.push("## Summary", "");
   out.push("| Metric | Value |", "| --- | --- |");
@@ -302,6 +325,9 @@ code{font:12px ui-monospace,Menlo,Consolas,monospace;background:#f7f8fa;padding:
 .card b{display:block;font-size:20px}
 .badge{display:inline-block;padding:0 6px;border-radius:3px;font-size:12px;border:1px solid #e5e7eb}
 .approved{background:#e6f4ea;color:#1a7f37;border-color:#b7dfc1}.unreviewed{background:#fff4d6;color:#8a5a00;border-color:#ecd48c}.rejected{background:#fde8e8;color:#b42318;border-color:#f3b7b2}
+.headline{font-size:18px;font-weight:600;margin:8px 0 12px}
+.bar{display:flex;height:16px;border:1px solid #e5e7eb;border-radius:4px;overflow:hidden;background:#f7f8fa}.bar span{display:block;height:100%}
+.legend{color:#57606a;font-size:12px;margin:4px 0 0}.legend i{display:inline-block;width:10px;height:10px;margin:0 4px 0 12px;border-radius:2px;vertical-align:baseline}.legend i:first-child{margin-left:0}
 .alert{border:1px solid #f3b7b2;background:#fde8e8;border-radius:4px;padding:8px 12px;margin:8px 0}
 footer{margin-top:40px;padding-top:12px;border-top:1px solid #e5e7eb;color:#57606a;font-size:12px;text-align:center}
 `;
@@ -327,6 +353,11 @@ export function renderHtml(d: ReportData): string {
             : ""
         }${d.unreviewed.length > 0 ? `<h3>Awaiting review</h3><table>${head}${rangeRows(d.unreviewed)}</table>` : ""}`;
 
+  const sp = split(s);
+  const w = (n: number): number => (s.totalLines === 0 ? 0 : Math.round((n / s.totalLines) * 10000) / 100);
+  const bar = `<div class="bar" role="img" aria-label="Human ${sp.human} lines, AI reviewed ${sp.reviewed} lines, AI unreviewed ${sp.unreviewed} lines"><span style="width:${w(sp.human)}%;background:#cbd5e1"></span><span style="width:${w(sp.reviewed)}%;background:#1a7f37"></span><span style="width:${w(sp.unreviewed)}%;background:#d9a300"></span></div>
+<p class="legend"><i style="background:#cbd5e1"></i>human ${sp.human}<i style="background:#1a7f37"></i>AI reviewed ${sp.reviewed}<i style="background:#d9a300"></i>AI unreviewed ${sp.unreviewed}</p>`;
+
   const fileRows = d.files
     .map((f) => `<tr><td>${e(f.file)}</td><td class="n">${f.lines}</td><td class="n">${f.aiLines}</td><td class="n">${f.unreviewedAiLines}</td></tr>`)
     .join("");
@@ -342,6 +373,8 @@ export function renderHtml(d: ReportData): string {
 <body><main>
 <h1>Provenance compliance report</h1>
 <p class="meta">Generated ${e(d.generatedAt)} · HEAD ${e(d.head ? d.head.slice(0, 7) : "(no commits)")}${d.since ? ` · sessions since ${e(day(d.since))}` : ""}</p>
+<p class="headline">${e(headline(d))}</p>
+${bar}
 <h2>Summary</h2>
 <div class="cards">
 <div class="card"><b>${s.totalLines}</b>tracked lines</div>

@@ -14,12 +14,18 @@ code{font:12px ui-monospace,Menlo,Consolas,monospace;background:#f7f8fa;padding:
 .card b{display:block;font-size:20px}
 .badge{display:inline-block;padding:0 6px;border-radius:3px;font-size:12px;border:1px solid #e5e7eb}
 .approved{background:#e6f4ea;color:#1a7f37;border-color:#b7dfc1}.unreviewed{background:#fff4d6;color:#8a5a00;border-color:#ecd48c}.rejected{background:#fde8e8;color:#b42318;border-color:#f3b7b2}
+.headline{font-size:18px;font-weight:600;margin:8px 0 12px}
+.bar{display:flex;height:16px;border:1px solid #e5e7eb;border-radius:4px;overflow:hidden;background:#f7f8fa}.bar span{display:block;height:100%}
+.legend{color:#57606a;font-size:12px;margin:4px 0 0}.legend i{display:inline-block;width:10px;height:10px;margin:0 4px 0 12px;border-radius:2px;vertical-align:baseline}.legend i:first-child{margin-left:0}
 .alert{border:1px solid #f3b7b2;background:#fde8e8;border-radius:4px;padding:8px 12px;margin:8px 0}
 footer{margin-top:40px;padding-top:12px;border-top:1px solid #e5e7eb;color:#57606a;font-size:12px;text-align:center}
 </style></head>
 <body><main>
 <h1>Provenance compliance report</h1>
 <p class="meta">Generated 2026-10-27T09:00:00.000Z · HEAD HEAD7</p>
+<p class="headline">1 rejected session still in code (1 line) · 28% of lines are unreviewed AI code</p>
+<div class="bar" role="img" aria-label="Human 16 lines, AI reviewed 2 lines, AI unreviewed 7 lines"><span style="width:64%;background:#cbd5e1"></span><span style="width:8%;background:#1a7f37"></span><span style="width:28%;background:#d9a300"></span></div>
+<p class="legend"><i style="background:#cbd5e1"></i>human 16<i style="background:#1a7f37"></i>AI reviewed 2<i style="background:#d9a300"></i>AI unreviewed 7</p>
 <h2>Summary</h2>
 <div class="cards">
 <div class="card"><b>25</b>tracked lines</div>
@@ -42,6 +48,8 @@ exports[`report on a fixture repo (the demo history) > markdown report matches t
 "# Provenance compliance report
 
 Generated 2026-10-27T09:00:00.000Z · HEAD HEAD7
+
+**1 rejected session still in code (1 line) · 28% of lines are unreviewed AI code**
 
 ## Summary
 
