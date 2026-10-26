@@ -16,6 +16,7 @@ Everything lives in your git repo. Sessions are JSON files under `.provenance/se
 - [How it works](#how-it-works)
 - [Development](#development)
 - [Roadmap](#roadmap)
+- [Status](STATUS.md)
 
 ## Install
 

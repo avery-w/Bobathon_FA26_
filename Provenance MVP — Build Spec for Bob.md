@@ -15,69 +15,6 @@ Build the complete Provenance MVP described in this spec, as a working TypeScrip
 7. When a requirement is ambiguous, choose the simplest option, note it in `DECISIONS.md`, and keep going.
 8. Finish by writing `README.md` with install steps, a 5-minute quickstart, and the demo script from the last section.
 
-## Build progress
-
-Last updated: Oct 26, 2026 · branch `provenance` on `avery-w/Bobathon_FA26`.
-
-**Status: MVP complete and demoed. Remaining work is product hardening. Merging with the other two projects is a future plan, not a current concern (see "Future plans").**
-
-`pnpm lint`, `pnpm build` and `pnpm test` pass (10 test files, 122 tests), and the GitHub Actions **CI** run is green on both commits on `provenance`. The VS Code extension-host test passes 4 of 4 (run locally; it downloads VS Code, so it is not part of CI). Plan is in `PLAN.md`; every ambiguity is numbered in `DECISIONS.md` (33 entries).
-
-### Completed
-
-| # | Milestone | Status | Evidence |
-| --- | --- | --- | --- |
-| 1 | Scaffold | Done | pnpm workspace, 4 packages, strict tsconfig, vitest, eslint, `.github/workflows/ci.yml`; CI green on GitHub |
-| 2 | Core: storage and linking | Done | `schema.ts`, `store.ts`, `git.ts`, `link.ts`; tests cover root commits, `filesChanged` splitting, trailers without pending, merge on re-link, file names with spaces |
-| 3 | Core: attribution | Done | `attribute.ts`; tests cover AI line, later human edit, shifted line, uncommitted line, amended commit, rename |
-| 4 | CLI and hook | Done | All commands plus `--json`; e2e test covers init, record, commit, explain, review, existing hook preserved |
-| 5 | MCP server | Done | 5 tools over stdio; SDK client test calls every tool and confirms `../../etc/passwd` is rejected |
-| 6 | Report | Done | `prov report` for Markdown and HTML; snapshot tests; HTML has no URLs, scripts or external requests |
-| 7 | VS Code extension | Done | Gutter bars, hover card, status bar, four commands, `provenance.cliPath`; bundled with esbuild; 12 unit tests plus the 4-test extension-host run |
-| 8 | Demo and docs | Done | `examples/demo-repo.sh`, `examples/reset-demo.sh`, `README.md`, `docs/agent-instructions.md` |
-
-**Added after the original build:**
-
-- `examples/reset-demo.sh` rebuilds `~/prov-demo` and writes `.vscode/settings.json` (extension finds `prov`) and `.bob/mcp.json` (Bob finds `prov-mcp`). Safe to rerun between demo takes.
-- `.vscode/launch.json` at the repo root and in `packages/vscode-extension/`.
-- README install section now covers the `corepack enable` permission error and a wrapper-script fallback; `*.vsix` is gitignored.
-
-### Verified by hand (Oct 26)
-
-- **Install:** `prov` and `prov-mcp` run from a fresh shell via wrapper scripts in `~/.local/bin`.
-- **Demo repo:** `prov explain`, `prov blame`, `prov status` and `prov report` give the expected output (4 sessions, 55% AI in `refund.ts`).
-- **VS Code hover:** installed as a `.vsix`. Amber gutter bars, hover card (prompt, model, context files, commit, Approve/Reject) and the status bar all work. The folder must be **trusted**; in Restricted Mode the extension stays off.
-- **Bob + MCP:** `provenance` is registered in Bob's global `~/.bob/settings/mcp.json` and Bob calls it. A scripted MCP client also passed `find_sessions_touching`, `explain_line`, `record_session` (then commit with trailer, then `explain`) and path-traversal rejection.
-
-### Known gaps and caveats
-
-- **Demo data is scripted.** The four sessions, the prompts, the agent name (`IBM Bob`) and model (`granite-demo`) and the reviews by `dana` are all written by `demo-repo.sh`. The report's numbers are computed from the repo (sessions, git notes, `git blame`), but no model wrote that code.
-- **Capture is not automatic.** Sessions exist only if the agent calls `record_session` (see `docs/agent-instructions.md`). Code written before setup shows as human. Listed as out of scope in the README Roadmap.
-- **F5 launch was not confirmed.** It did nothing at first; the config was added, but the working path was installing the `.vsix`. Bob's IDE may not expose the Run and Debug panel.
-- **`pnpm link --global` was not confirmed.** It failed in the user's shell at `corepack enable` (EACCES); the wrapper-script route works instead.
-- **Notes are not pushed by default.** `refs/notes/provenance` needs `prov sync`; the GitHub repo has none yet.
-- **Report is plain.** Tables only, no headline callout or chart. Worth improving if the report stays in the demo.
-
-### Next steps
-
-Work stays on the `provenance` branch. Do not push to `main`.
-
-1. **Run a real session in the demo.** Have Bob make a small change in `~/prov-demo` and record it through MCP, so at least one session is not scripted.
-2. **Decide on the report.** Add a headline ("N rejected sessions still in code"), a split bar, or drop it from the main demo.
-3. **Housekeeping.** Run `prov sync` when real notes exist, and remove the `provenance` entry from `~/.bob/settings/mcp.json` after the demo (backup: `mcp.json.bak-provenance`).
-
-### Future plans (not a current concern)
-
-Merging this project with the two related projects is planned for later. Nothing above depends on it, so none of it needs action now.
-
-- **Where the other projects are.** `main` on `avery-w/Bobathon_FA26` holds a teammate's Bob Time Machine (Next.js, npm, its own CI); the Provenance files were removed from it (`c85b8b5`). The third project has not been located yet.
-- **Layout and tooling.** Pick a layout (for example `packages/*` for libraries and `apps/*` for apps) and a single package manager. This repo uses pnpm; Time Machine uses npm.
-- **Root collisions to resolve.** `package.json`, lockfiles, `tsconfig.base.json`, `vitest.config.ts`, `eslint.config.js`, `.gitignore`, `README.md`, `.github/workflows/ci.yml`.
-- **History.** `git merge --allow-unrelated-histories` or `git subtree add`; the Provenance and `main` histories share only commit `5f8f7d9`.
-- **CI.** Give each project its own path-filtered workflow once they share a repo.
-- **Pull request and default branch.** Open a PR from `provenance` once the layout is agreed, and decide then whether the GitHub default branch changes.
-- **Teammates.** Tell them `prov` uses the nearest `.git`, so run it on other projects or the demo repo and not on a merged repo's root.
-
 ## Product and MVP scope
 
 Provenance is "git blame for AI-written code": for any line in a repo, it answers which AI session wrote it, from what prompt and context, with which model, and whether a human reviewed it.
