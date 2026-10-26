@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+.DS_Store
+*.log
+.playwright-mcp/
+.bob/
+.env
+.env.local
+.env.production
+.env.development
+salesloft-lead-sync/.venv/
