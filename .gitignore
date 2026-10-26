@@ -26,3 +26,6 @@ report.html
 .DS_Store
 .idea/
 *.log
+
+# Packaged VS Code extension
+*.vsix

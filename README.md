@@ -22,8 +22,8 @@ Everything lives in your git repo. Sessions are JSON files under `.provenance/se
 Requirements: **Node 22+ recommended** (Node 20 is the minimum the code supports), `git`, and [pnpm](https://pnpm.io) (`corepack enable` provides the pinned version).
 
 ```bash
-git clone <this repo> provenance && cd provenance
-corepack enable
+git clone --branch provenance https://github.com/avery-w/Bobathon_FA26.git provenance && cd provenance
+corepack enable       # if this fails with EACCES, use `corepack pnpm ...` instead of `pnpm ...`
 pnpm install
 pnpm build
 ```
@@ -37,7 +37,15 @@ pnpm --dir packages/mcp-server link --global  # provides `prov-mcp`
 prov --help
 ```
 
-If you prefer not to link, call the built files directly: `node /path/to/provenance/packages/cli/dist/bin.js`.
+If linking fails, create two wrapper scripts in a folder that is on your `PATH` (here `~/.local/bin`). Use the full path to `node`, because GUI apps such as VS Code may not have it on their `PATH`:
+
+```bash
+mkdir -p ~/.local/bin
+printf '#!/bin/sh\nexec %s %s/packages/cli/dist/bin.js "$@"\n' "$(command -v node)" "$PWD" > ~/.local/bin/prov
+printf '#!/bin/sh\nexec %s %s/packages/mcp-server/dist/bin.js "$@"\n' "$(command -v node)" "$PWD" > ~/.local/bin/prov-mcp
+chmod +x ~/.local/bin/prov ~/.local/bin/prov-mcp
+export PATH="$HOME/.local/bin:$PATH"    # add this line to ~/.zshrc, then open a new terminal
+```
 
 ## 5-minute quickstart
 
@@ -114,6 +122,14 @@ cd demo-repo
 prov explain src/refund.ts:9      # session B, unreviewed
 prov report --format html --out report.html
 ```
+
+For a live demo, use [`examples/reset-demo.sh`](examples/reset-demo.sh) instead. It rebuilds `~/prov-demo` from scratch (safe to rerun between takes) and also writes `.vscode/settings.json` (so the extension finds `prov`) and `.bob/mcp.json` (so Bob can call `prov-mcp`). It needs `prov` and `prov-mcp` on `PATH`.
+
+```bash
+bash examples/reset-demo.sh
+```
+
+Then open `~/prov-demo` in VS Code, choose **Trust Folder** when the Restricted Mode banner appears, and open `src/refund.ts`. To install the extension without a debug session: `cd packages/vscode-extension`, run `corepack pnpm dlx @vscode/vsce package --no-dependencies --allow-missing-repository`, then `code --install-extension provenance-vscode-0.1.0.vsix`.
 
 Suggested three-minute walkthrough:
 
