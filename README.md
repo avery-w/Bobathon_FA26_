@@ -140,6 +140,12 @@ Suggested three-minute walkthrough:
 2. **Hover (45 s).** Open `src/refund.ts` in VS Code with the extension. Amber gutter bars mark unreviewed AI lines. Hover one: session B's prompt, model, context files, "unreviewed". Hover a line the human rewrote: no AI badge.
 3. **Agent loop (45 s).** In Bob, ask "Why does the refund endpoint reject negative amounts?" Bob calls `explain_line` and answers with the original prompt and summary.
 4. **Review (30 s).** Click Approve in the hover card. The bar turns green.
+
+   *Optional live step, between steps 3 and 4:* have Bob write a real session. It is not part of `demo-repo.sh` or `reset-demo.sh`, so those stay scripted and repeatable. After `bash examples/reset-demo.sh`, open `~/prov-demo` in Bob and give it exactly this prompt:
+
+   > Reject refund amounts with more than two decimal places, and add a test for it in test/refund.test.ts. Use the provenance MCP server: call `record_session` before you commit, and put the trailer it returns in the commit message.
+
+   Then run `prov explain src/refund.ts:13` and `prov report --format md`. The new session shows Bob's real agent name and model (or `unknown` if Bob cannot report its model), not `granite-demo`.
 5. **Audit (30 s).** `prov report --format html`. Show the unreviewed list at the top and the rejected PII session flagged.
 
 > Provenance makes every AI-written line traceable to its prompt and its reviewer, using nothing but git.
