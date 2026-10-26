@@ -1,0 +1,92 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`report on a fixture repo (the demo history) > html report matches the snapshot, is self-contained, and escapes untrusted text 1`] = `
+"<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Provenance compliance report</title><style>
+body{font:14px/1.6 -apple-system,"Segoe UI",system-ui,sans-serif;color:#1f2328;background:#fff;margin:0}
+main{max-width:980px;margin:0 auto;padding:32px 24px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:32px 0 8px;border-bottom:1px solid #e5e7eb;padding-bottom:4px}h3{font-size:14px;margin:16px 0 6px}
+.muted{color:#57606a}.meta{color:#57606a;margin:0 0 16px}
+table{border-collapse:collapse;width:100%;margin:8px 0}th,td{border:1px solid #e5e7eb;padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#f7f8fa;font-weight:600}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+code{font:12px ui-monospace,Menlo,Consolas,monospace;background:#f7f8fa;padding:1px 4px;border-radius:3px}
+.cards{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.card{flex:1 1 150px;background:#f7f8fa;border:1px solid #e5e7eb;border-radius:4px;padding:8px 12px}
+.card b{display:block;font-size:20px}
+.badge{display:inline-block;padding:0 6px;border-radius:3px;font-size:12px;border:1px solid #e5e7eb}
+.approved{background:#e6f4ea;color:#1a7f37;border-color:#b7dfc1}.unreviewed{background:#fff4d6;color:#8a5a00;border-color:#ecd48c}.rejected{background:#fde8e8;color:#b42318;border-color:#f3b7b2}
+.alert{border:1px solid #f3b7b2;background:#fde8e8;border-radius:4px;padding:8px 12px;margin:8px 0}
+footer{margin-top:40px;padding-top:12px;border-top:1px solid #e5e7eb;color:#57606a;font-size:12px;text-align:center}
+</style></head>
+<body><main>
+<h1>Provenance compliance report</h1>
+<p class="meta">Generated 2026-10-27T09:00:00.000Z · HEAD HEAD7</p>
+<h2>Summary</h2>
+<div class="cards">
+<div class="card"><b>25</b>tracked lines</div>
+<div class="card"><b>9 (36%)</b>AI-written lines</div>
+<div class="card"><b>7 (28%)</b>unreviewed AI lines</div>
+<div class="card"><b>4</b>sessions: 1 approved, 2 unreviewed, 1 rejected</div>
+</div>
+<h2>Unreviewed AI code</h2>
+<div class="alert"><b>1 range from rejected sessions still present at HEAD.</b></div><table><tr><th>Range</th><th>Session</th><th>Status</th><th>Prompt</th></tr><tr><td><code>src/payment-client.ts:9-9</code></td><td><code>5R8T0V1D</code></td><td><span class="badge rejected">rejected</span></td><td>Log card numbers for debugging &lt;b&gt;&amp; &quot;quotes&quot;&lt;/b&gt;</td></tr></table><h3>Awaiting review</h3><table><tr><th>Range</th><th>Session</th><th>Status</th><th>Prompt</th></tr><tr><td><code>src/refund.ts:7-7</code></td><td><code>5R8T0V1B</code></td><td><span class="badge unreviewed">unreviewed</span></td><td>Add input validation to the refund endpoint</td></tr><tr><td><code>src/refund.ts:9-10</code></td><td><code>5R8T0V1B</code></td><td><span class="badge unreviewed">unreviewed</span></td><td>Add input validation to the refund endpoint</td></tr><tr><td><code>test/refund.test.ts:1-3</code></td><td><code>5R8T0V1C</code></td><td><span class="badge unreviewed">unreviewed</span></td><td>Write unit tests for refunds</td></tr></table>
+<h2>By file</h2>
+<table><tr><th>File</th><th class="n">Lines</th><th class="n">AI lines</th><th class="n">Unreviewed AI lines</th></tr><tr><td>src/refund.ts</td><td class="n">10</td><td class="n">3</td><td class="n">3</td></tr><tr><td>test/refund.test.ts</td><td class="n">3</td><td class="n">3</td><td class="n">3</td></tr><tr><td>src/payment-client.ts</td><td class="n">9</td><td class="n">3</td><td class="n">1</td></tr><tr><td>docs/readme with space.md</td><td class="n">3</td><td class="n">0</td><td class="n">0</td></tr></table>
+<h2>Sessions</h2>
+<table><tr><th>ID</th><th>Date</th><th>Agent</th><th>Model</th><th>Prompt</th><th>Status</th><th>Reviewer</th><th class="n">Lines at HEAD</th></tr><tr><td><code>5R8T0V1A</code></td><td>2026-10-26</td><td>IBM Bob</td><td>granite-test</td><td>Add retry with exponential backoff to the payment client.</td><td><span class="badge approved">approved</span></td><td>dana</td><td class="n">2</td></tr><tr><td><code>5R8T0V1B</code></td><td>2026-10-26</td><td>IBM Bob</td><td>granite-test</td><td>Add input validation to the refund endpoint</td><td><span class="badge unreviewed">unreviewed</span></td><td></td><td class="n">3</td></tr><tr><td><code>5R8T0V1C</code></td><td>2026-10-26</td><td>IBM Bob</td><td>granite-test</td><td>Write unit tests for refunds</td><td><span class="badge unreviewed">unreviewed</span></td><td></td><td class="n">3</td></tr><tr><td><code>5R8T0V1D</code></td><td>2026-10-26</td><td>IBM Bob</td><td>granite-test</td><td>Log card numbers for debugging &lt;b&gt;&amp; &quot;quotes&quot;&lt;/b&gt;</td><td><span class="badge rejected">rejected</span><div class="muted">PII — must not log card data.</div></td><td>dana</td><td class="n">1</td></tr></table>
+<footer>Generated by Provenance</footer>
+</main></body></html>
+"
+`;
+
+exports[`report on a fixture repo (the demo history) > markdown report matches the snapshot and puts the unreviewed list before By file 1`] = `
+"# Provenance compliance report
+
+Generated 2026-10-27T09:00:00.000Z · HEAD HEAD7
+
+## Summary
+
+| Metric | Value |
+| --- | --- |
+| Total tracked lines | 25 |
+| AI-written lines | 9 (36%) |
+| Unreviewed AI lines | 7 (28%) |
+| Sessions | 4 |
+| Sessions unreviewed | 2 |
+| Sessions approved | 1 |
+| Sessions rejected | 1 |
+
+## Unreviewed AI code
+
+### Rejected sessions still present at HEAD
+
+| Range | Session | Prompt |
+| --- | --- | --- |
+| \`src/payment-client.ts:9-9\` | 5R8T0V1D | Log card numbers for debugging &lt;b>& "quotes"&lt;/b> |
+
+### Awaiting review
+
+| Range | Session | Prompt |
+| --- | --- | --- |
+| \`src/refund.ts:7-7\` | 5R8T0V1B | Add input validation to the refund endpoint |
+| \`src/refund.ts:9-10\` | 5R8T0V1B | Add input validation to the refund endpoint |
+| \`test/refund.test.ts:1-3\` | 5R8T0V1C | Write unit tests for refunds |
+
+## By file
+
+| File | Lines | AI lines | Unreviewed AI lines |
+| --- | ---: | ---: | ---: |
+| src/refund.ts | 10 | 3 | 3 |
+| test/refund.test.ts | 3 | 3 | 3 |
+| src/payment-client.ts | 9 | 3 | 1 |
+| docs/readme with space.md | 3 | 0 | 0 |
+
+## Sessions
+
+| ID | Date | Agent | Model | Prompt | Status | Reviewer | Lines at HEAD |
+| --- | --- | --- | --- | --- | --- | --- | ---: |
+| 5R8T0V1A | 2026-10-26 | IBM Bob | granite-test | Add retry with exponential backoff to the payment client. | approved | dana | 2 |
+| 5R8T0V1B | 2026-10-26 | IBM Bob | granite-test | Add input validation to the refund endpoint | unreviewed |  | 3 |
+| 5R8T0V1C | 2026-10-26 | IBM Bob | granite-test | Write unit tests for refunds | unreviewed |  | 3 |
+| 5R8T0V1D | 2026-10-26 | IBM Bob | granite-test | Log card numbers for debugging &lt;b>& "quotes"&lt;/b> | rejected (PII — must not log card data.) | dana | 1 |
+"
+`;

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist-test",
+    "rootDir": "vscode-test",
+    "declaration": false,
+    "sourceMap": false,
+    "types": ["node", "vscode"]
+  },
+  "include": ["vscode-test"]
+}

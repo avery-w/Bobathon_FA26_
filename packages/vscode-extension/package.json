@@ -1,0 +1,43 @@
+{
+  "name": "provenance-vscode",
+  "displayName": "Provenance",
+  "description": "See which AI session wrote each line, and whether a human reviewed it.",
+  "version": "0.1.0",
+  "private": true,
+  "publisher": "provenance",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": ["Other"],
+  "main": "./dist/extension.js",
+  "activationEvents": ["workspaceContains:.provenance"],
+  "contributes": {
+    "commands": [
+      { "command": "provenance.showSession", "title": "Provenance: Show Session" },
+      { "command": "provenance.approveSession", "title": "Provenance: Approve Session" },
+      { "command": "provenance.rejectSession", "title": "Provenance: Reject Session" },
+      { "command": "provenance.generateReport", "title": "Provenance: Generate Report" }
+    ],
+    "configuration": {
+      "title": "Provenance",
+      "properties": {
+        "provenance.cliPath": {
+          "type": "string",
+          "default": "prov",
+          "description": "Path to the prov CLI. The default uses 'prov' from PATH."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs && tsc -p tsconfig.test.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:vscode": "node dist-test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "~1.100.0",
+    "@vscode/test-electron": "^3.1.0",
+    "esbuild": "^0.28.2"
+  }
+}
