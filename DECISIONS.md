@@ -9,7 +9,7 @@ Ambiguities in the spec, resolved with the simplest option.
 5. **Node floor.** `engines.node >= 20` as the spec says. Node 20 is past upstream EOL, so Node 22+ is recommended in the README; no code relies on features newer than Node 20.
 6. **Notes ref.** `git notes --ref=provenance` resolves to `refs/notes/provenance`; the code always passes the full ref name.
 7. **Hunk granularity.** Hunks come straight from `git diff --unified=0`; adjacent hunks are not merged.
-8. **VS Code test harness.** `@vscode/test-electron` downloads a VS Code build, so it needs network. It is wired as `pnpm --filter provenance-vscode test:vscode` and is **not** part of the default `pnpm test`; the hover/gutter logic is pure functions covered by regular vitest tests.
+8. **VS Code test harness.** `@vscode/test-electron` downloads a VS Code build, so it needs network. It is wired as `pnpm --filter provenance-vscode test:vscode` and is **not** part of the default `pnpm test`; the hover/gutter logic is pure functions covered by regular vitest tests. It now runs in CI as a separate `vscode` job (Ubuntu, `xvfb-run`, VS Code version pinned through `VSCODE_TEST_VERSION` and used as the `.vscode-test/` cache key); the job is still kept out of `pnpm test`.
 9. **TypeScript pinned to 6.0.x.** `typescript-eslint` 8.x does not yet support TypeScript 7 (unmet peer), so the toolchain uses the newest TypeScript it supports. Revisit when `typescript-eslint` adds TS 7 support.
 10. **`@types/vscode` pinned to `~1.100.0`** to match `engines.vscode ^1.100.0` (the types must not be newer than the minimum supported VS Code).
 11. **esbuild install script** is explicitly approved (`allowBuilds` in `pnpm-workspace.yaml`); no other dependency build scripts are allowed.

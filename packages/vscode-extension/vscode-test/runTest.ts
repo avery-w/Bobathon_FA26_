@@ -27,6 +27,7 @@ async function main(): Promise<void> {
   delete process.env["ELECTRON_RUN_AS_NODE"];
 
   await runTests({
+    version: process.env["VSCODE_TEST_VERSION"] ?? "stable",
     extensionDevelopmentPath: path.resolve(__dirname, ".."),
     extensionTestsPath: path.resolve(__dirname, "suite", "index"),
     launchArgs: [path.join(work, "demo-repo"), "--disable-extensions", "--disable-workspace-trust"],
