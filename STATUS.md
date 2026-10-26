@@ -19,6 +19,33 @@ Latest CI run, all three jobs green (`build-test` on Node 20 and 22, and `vscode
 
 Not run: F5 in an IDE; the live session was recorded in `~/prov-demo` only, not synced anywhere. Notes reach GitHub only through `prov sync`, and the throwaway demo repo is never synced.
 
+### Known gaps from the older list, as of round 2
+
+The older sections below are kept word for word and are not updated. Where they differ from this section, this section is current.
+
+| Older gap | Now |
+| --- | --- |
+| Extension-host test is not part of CI | Closed: runs in the `vscode` CI job (DECISIONS #8) |
+| Only Node 22 tested | Closed: CI matrix runs Node 20 and 22 |
+| Demo makes 6 commits | Closed: 5 commits (DECISIONS #35) |
+| Demo data is scripted | Partly closed: one real session exists in `~/prov-demo` (agent `IBM Bob`, model `unknown`, DECISIONS #36). The scripted sessions remain `granite-demo`. The live step is optional in the README and is not in `demo-repo.sh` or `reset-demo.sh` |
+| F5 launch not confirmed | Open: `launch.json` files now have a `preLaunchTask` and a `tasks.json`, but F5 is still untested. Install the .vsix (`pnpm --filter provenance-vscode package:vsix`) |
+| `pnpm link --global` not confirmed | Open, now documented as an alternative. The wrapper-script route is the supported install and was verified in a fresh shell |
+| Report is plain | Closed: headline plus split bar in the HTML (DECISIONS #38) |
+| Notes not pushed by default | Unchanged by design: only `prov sync` pushes them. Tested against a local bare origin. The GitHub repo still has no `refs/notes/provenance`, because the demo repo is never synced |
+| Capture is not automatic | Open, out of scope |
+
+### Open items
+
+- Run F5 in an IDE, or leave it documented as untested.
+- Decide whether the live session's note should ever be synced. It lives only in `~/prov-demo`.
+- Housekeeping from the older list: remove the `provenance` entry from `~/.bob/settings/mcp.json` after the demo.
+- Merging with the other two projects remains a future plan (see "Future plans" below).
+
+### DECISIONS added this round
+
+#34 spec is read-only, STATUS.md holds progress · #35 five-commit demo history · #36 live session model `unknown` · #37 install route and F5 status · #38 report headline and bar · #39 sync test with a local bare origin. #8 was updated.
+
 The sections below were moved word for word out of the spec file. The first is the section as it stood before this move; the second is the original "Build progress" section from commit `5f8f7d9`.
 
 ## Build progress
