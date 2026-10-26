@@ -85,5 +85,9 @@ export async function run(): Promise<void> {
       console.error(`  FAIL ${name}\n       ${e instanceof Error ? e.message : String(e)}`);
     }
   }
+  const summary = `${tests.length - failed} of ${tests.length} extension tests passed`;
+  console.log(summary);
+  // On GitHub Actions this also shows up as an annotation on the run page.
+  if (process.env["GITHUB_ACTIONS"]) console.log(`::notice title=vscode extension tests::${summary}`);
   if (failed > 0) throw new Error(`${failed} extension test(s) failed`);
 }
