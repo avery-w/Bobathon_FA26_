@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Bob Analytics</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>My Bob Analytics</h1>
+    <p class="muted" id="subtitle">Loading your Bob data...</p>
+  </div>
+  <button id="settings-toggle" type="button" class="secondary">Cycle &amp; budget settings</button>
+</header>
+
+<section id="settings" class="card" hidden>
+  <h2>Cycle &amp; budget settings</h2>
+  <p class="muted">Your Bob credits reset on a fixed day each month. Set it here so the charts line up with your real cycle. Stored only in <code>~/.bob-dashboard/config.json</code>.</p>
+  <form id="settings-form" class="settings-grid">
+    <label>Reset day of month
+      <input id="s-reset" type="number" min="1" max="31" step="1" required>
+    </label>
+    <label>Monthly Bobcoin budget (optional)
+      <input id="s-budget" type="number" min="0" step="any" placeholder="e.g. 40">
+    </label>
+    <label>Cost multiplier
+      <input id="s-mult" type="number" min="0" step="any" required>
+    </label>
+    <label class="check"><input id="s-snip" type="checkbox"> Show prompt snippets in the table</label>
+    <label class="check"><input id="s-prompts" type="checkbox"> Show my past prompts (redacted) with suggested improvements</label>
+    <div class="actions">
+      <button type="submit">Save</button>
+      <span id="settings-msg" class="muted" role="status"></span>
+    </div>
+  </form>
+</section>
+
+<div id="error" class="card error-card" hidden role="alert"></div>
+
+<main id="content" hidden>
+  <section class="kpis" id="kpis"></section>
+
+  <section class="card wide" id="optimizer">
+    <h2>Prompt optimizer</h2>
+    <p class="muted">Type or paste a prompt before you send it to Bob. Feedback updates as you type. The text is analysed on this computer only and is never saved or logged.</p>
+    <label for="opt-input" class="visually-hidden">Prompt to check</label>
+    <textarea id="opt-input" rows="6" maxlength="8000" placeholder="e.g. fix the login bug"></textarea>
+    <div class="opt-meta muted"><span id="opt-count">0 / 8000</span></div>
+    <div id="opt-result" class="opt-result" aria-live="polite"></div>
+  </section>
+
+  <section class="card wide">
+    <h2>Credit cycle: spend before reset</h2>
+    <p class="muted" id="cycle-note"></p>
+    <div id="chart-cycle"></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card"><h2>Daily spend this cycle, by folder</h2><div id="chart-daily"></div></div>
+    <div class="card"><h2>Usage by folder (all time)</h2><div id="chart-folders"></div></div>
+  </section>
+
+  <section class="card wide">
+    <h2>Spend per credit cycle, by folder</h2>
+    <div id="chart-cycles"></div>
+  </section>
+
+  <section class="grid3">
+    <div class="card"><h2>Prompt quality</h2><div id="chart-quality"></div></div>
+    <div class="card"><h2>One-shot vs multi-turn</h2><div id="chart-outcomes-donut"></div></div>
+    <div class="card"><h2>Most used tools</h2><div id="chart-tools"></div></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card"><h2>Conversation outcomes by week</h2><div id="chart-weekly"></div></div>
+    <div class="card"><h2>Spend by mode</h2><div id="chart-modes"></div></div>
+  </section>
+
+  <section class="card wide">
+    <h2>Efficiency score</h2>
+    <div id="efficiency"></div>
+  </section>
+
+  <section class="card wide">
+    <h2>Recommendations for you</h2>
+    <div id="recs"></div>
+  </section>
+
+  <section class="card wide" id="review-card" hidden>
+    <h2>Your opening prompts, with suggested improvements</h2>
+    <p class="muted">Lowest-scoring first. Secrets are replaced with [REDACTED]. Suggestions are templates: fill in the [bracketed] parts.</p>
+    <div id="review"></div>
+  </section>
+
+  <section class="card wide">
+    <h2>When you use Bob</h2>
+    <p class="muted" id="habit-note"></p>
+    <div id="chart-heat"></div>
+  </section>
+
+  <section class="card wide">
+    <h2>Costliest conversations</h2>
+    <div id="top-table" class="table-wrap"></div>
+  </section>
+
+  <section class="card wide">
+    <h2>Best practices for efficient Bob use</h2>
+    <ul id="practices" class="practices"></ul>
+  </section>
+
+  <p class="muted footnote" id="footnote"></p>
+</main>
+
+<footer class="foot">Made with IBM Bob</footer>
+<script src="/app.js"></script>
+</body>
+</html>
