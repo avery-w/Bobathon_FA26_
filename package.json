@@ -1,25 +1,31 @@
 {
-  "name": "provenance",
+  "name": "bob-time-machine",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.1.0",
-  "description": "Provenance: git blame for AI-written code",
-  "type": "module",
-  "packageManager": "pnpm@12.15.0",
-  "engines": {
-    "node": ">=20"
-  },
   "scripts": {
-    "build": "pnpm -r build",
-    "test": "vitest run",
-    "lint": "eslint .",
-    "typecheck": "pnpm -r typecheck"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "license": "Apache-2.0",
+  "dependencies": {
+    "@xyflow/react": "^12.3.6",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.468.0",
+    "next": "^14.2.21",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.5.5",
+    "zustand": "^5.0.2"
+  },
   "devDependencies": {
-    "@types/node": "^26.6.5",
-    "eslint": "^10.13.0",
-    "typescript": "~6.0.3",
-    "typescript-eslint": "^8.72.0",
-    "vitest": "^5.0.5"
+    "@types/node": "^20.17.10",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2"
   }
 }
