@@ -99,7 +99,7 @@ prov status
 prov report --format html --out report.html
 ```
 
-**6. Share the notes.** Git does not push notes by default:
+**6. Share the notes.** Git does not push notes by default, so a plain `git push` leaves `refs/notes/provenance` behind. Notes only reach GitHub through `prov sync`:
 
 ```bash
 prov sync     # fetch, merge and push refs/notes/provenance against origin

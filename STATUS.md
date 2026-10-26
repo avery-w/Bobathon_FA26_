@@ -2,6 +2,10 @@
 
 Progress notes for the Provenance MVP. The build spec (`Provenance MVP — Build Spec for Bob.md`) is the source of truth and is never edited; record progress here instead.
 
+## Current state (round 2)
+
+- **Notes reach GitHub only through `prov sync`.** A plain `git push` does not carry `refs/notes/provenance`. The throwaway demo repo (`~/prov-demo`, `demo-repo/`) is never synced. `packages/cli/test/sync.test.ts` checks this against a local bare `origin`.
+
 The sections below were moved word for word out of the spec file. The first is the section as it stood before this move; the second is the original "Build progress" section from commit `5f8f7d9`.
 
 ## Build progress
