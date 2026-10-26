@@ -29,3 +29,19 @@ report.html
 
 # Packaged VS Code extension
 *.vsix
+
+# Next.js / web app
+.next/
+out/
+next-env.d.ts
+
+# Python
+__pycache__/
+*.pyc
+
+# Demo generated output
+demo/out/
+
+# Bob local state
+.bob/
+.playwright-mcp/

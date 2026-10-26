@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 127.0.0.1",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -H 127.0.0.1"
   },
   "dependencies": {
     "@xyflow/react": "^12.3.6",
