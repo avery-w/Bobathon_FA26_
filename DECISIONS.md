@@ -34,5 +34,5 @@ Ambiguities in the spec, resolved with the simplest option.
 30. **`--since`** filters sessions by `createdAt`. Lines from older sessions are then counted as human in that view, because the report is about the sessions in the window.
 31. **HTML report** is one file: inline CSS, no scripts, no external URLs. All session text is HTML-escaped (prompts are untrusted).
 32. **VS Code harness clears `ELECTRON_RUN_AS_NODE`.** When `test:vscode` runs from an Electron-based editor, the variable is inherited and the downloaded VS Code starts as plain Node, treating the demo-repo path as a script (`Cannot find module`). `runTest.ts` deletes it from its own environment before launching. With that, all four extension-host tests pass.
-33. **`.gitignore` not written by the tooling.** The editing tools refuse to write `.gitignore`, so it must be created by hand (see README "Development" and the hand-off note): `node_modules/`, `dist/`, `dist-test/`, `.vscode-test/`, `demo-repo/`, `.env*`.
+33. **`.gitignore` not written by the tooling.** The editing tools refuse to write `.gitignore`, so it is created from the shell. It ignores `node_modules/`, `dist/`, `dist-test/`, `.vscode-test/`, `demo-repo/`, `report.html`, `.env*`, `*.vsix` and `.provenance/pending.json`.
 

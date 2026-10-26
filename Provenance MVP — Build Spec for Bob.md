@@ -17,7 +17,7 @@ Build the complete Provenance MVP described in this spec, as a working TypeScrip
 
 ## Build progress
 
-Last updated: Oct 26, 2026 · branch `provenance` on `avery-w/Bobathon_FA26` (commit `6712196`).
+Last updated: Oct 26, 2026 · branch `provenance` on `avery-w/Bobathon_FA26`.
 
 **Status: MVP complete and demoed. Remaining work is product hardening. Merging with the other two projects is a future plan, not a current concern (see "Future plans").**
 
@@ -77,7 +77,6 @@ Merging this project with the two related projects is planned for later. Nothing
 - **CI.** Give each project its own path-filtered workflow once they share a repo.
 - **Pull request and default branch.** Open a PR from `provenance` once the layout is agreed, and decide then whether the GitHub default branch changes.
 - **Teammates.** Tell them `prov` uses the nearest `.git`, so run it on other projects or the demo repo and not on a merged repo's root.
-
 
 ## Product and MVP scope
 
