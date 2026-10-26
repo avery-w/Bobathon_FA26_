@@ -19,7 +19,7 @@ Build the complete Provenance MVP described in this spec, as a working TypeScrip
 
 Last updated: Oct 26, 2026 · branch `provenance` on `avery-w/Bobathon_FA26` (commit `6712196`).
 
-**Status: MVP complete and demoed. Remaining work is the three-project merge and product hardening.**
+**Status: MVP complete and demoed. Remaining work is product hardening. Merging with the other two projects is a future plan, not a current concern (see "Future plans").**
 
 `pnpm lint`, `pnpm build` and `pnpm test` pass (10 test files, 122 tests), and the GitHub Actions **CI** run is green on both commits on `provenance`. The VS Code extension-host test passes 4 of 4 (run locally; it downloads VS Code, so it is not part of CI). Plan is in `PLAN.md`; every ambiguity is numbered in `DECISIONS.md` (33 entries).
 
@@ -57,19 +57,26 @@ Last updated: Oct 26, 2026 · branch `provenance` on `avery-w/Bobathon_FA26` (co
 - **`pnpm link --global` was not confirmed.** It failed in the user's shell at `corepack enable` (EACCES); the wrapper-script route works instead.
 - **Notes are not pushed by default.** `refs/notes/provenance` needs `prov sync`; the GitHub repo has none yet.
 - **Report is plain.** Tables only, no headline callout or chart. Worth improving if the report stays in the demo.
-- **GitHub default branch is still `main`.** It was not switched to `provenance`.
 
 ### Next steps
 
-1. **Merge the three projects.** `main` now holds the teammate's Bob Time Machine (Next.js, npm, own CI) and the Provenance files were removed from it (`c85b8b5`). Get the third project's repo or branch, then:
-   - Choose a layout (for example `packages/*` for libraries and `apps/*` for apps) and one package manager. This repo uses pnpm; Time Machine uses npm.
-   - Resolve root collisions: `package.json`, lockfiles, `tsconfig.base.json`, `vitest.config.ts`, `eslint.config.js`, `.gitignore`, `README.md`, `.github/workflows/ci.yml`.
-   - Keep history with `git merge --allow-unrelated-histories` or `git subtree add`; the Provenance and `main` histories share only commit `5f8f7d9`.
-   - Give each project its own CI path filter once they share a repo.
-2. **Open a pull request from `provenance`** once the layout is agreed. Do not push to `main`.
-3. **Run a real session in the demo.** Have Bob make a small change in `~/prov-demo` and record it through MCP, so at least one session is not scripted.
-4. **Decide on the report.** Add a headline ("N rejected sessions still in code"), a split bar, or drop it from the main demo.
-5. **Housekeeping.** Set the GitHub default branch, run `prov sync` when real notes exist, remove the `provenance` entry from `~/.bob/settings/mcp.json` after the demo (backup: `mcp.json.bak-provenance`), and tell teammates that `prov` uses the nearest `.git`, so run it on other projects or the demo repo and not on this folder.
+Work stays on the `provenance` branch. Do not push to `main`.
+
+1. **Run a real session in the demo.** Have Bob make a small change in `~/prov-demo` and record it through MCP, so at least one session is not scripted.
+2. **Decide on the report.** Add a headline ("N rejected sessions still in code"), a split bar, or drop it from the main demo.
+3. **Housekeeping.** Run `prov sync` when real notes exist, and remove the `provenance` entry from `~/.bob/settings/mcp.json` after the demo (backup: `mcp.json.bak-provenance`).
+
+### Future plans (not a current concern)
+
+Merging this project with the two related projects is planned for later. Nothing above depends on it, so none of it needs action now.
+
+- **Where the other projects are.** `main` on `avery-w/Bobathon_FA26` holds a teammate's Bob Time Machine (Next.js, npm, its own CI); the Provenance files were removed from it (`c85b8b5`). The third project has not been located yet.
+- **Layout and tooling.** Pick a layout (for example `packages/*` for libraries and `apps/*` for apps) and a single package manager. This repo uses pnpm; Time Machine uses npm.
+- **Root collisions to resolve.** `package.json`, lockfiles, `tsconfig.base.json`, `vitest.config.ts`, `eslint.config.js`, `.gitignore`, `README.md`, `.github/workflows/ci.yml`.
+- **History.** `git merge --allow-unrelated-histories` or `git subtree add`; the Provenance and `main` histories share only commit `5f8f7d9`.
+- **CI.** Give each project its own path-filtered workflow once they share a repo.
+- **Pull request and default branch.** Open a PR from `provenance` once the layout is agreed, and decide then whether the GitHub default branch changes.
+- **Teammates.** Tell them `prov` uses the nearest `.git`, so run it on other projects or the demo repo and not on a merged repo's root.
 
 
 ## Product and MVP scope
