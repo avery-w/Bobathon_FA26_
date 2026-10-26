@@ -4,7 +4,20 @@ Progress notes for the Provenance MVP. The build spec (`Provenance MVP — Build
 
 ## Current state (round 2)
 
-- **Notes reach GitHub only through `prov sync`.** A plain `git push` does not carry `refs/notes/provenance`. The throwaway demo repo (`~/prov-demo`, `demo-repo/`) is never synced. `packages/cli/test/sync.test.ts` checks this against a local bare `origin`.
+Latest CI run, all three jobs green (`build-test` on Node 20 and 22, and `vscode` with 4 of 4 extension tests): https://github.com/avery-w/Bobathon_FA26/actions/runs/40384642666. Local: lint, build and `pnpm test` pass (11 files, 126 tests).
+
+| # | Task | Status | Commit | How verified |
+| --- | --- | --- | --- | --- |
+| 1 | Spec restored, notes moved | done | 3ccf4fd | `git diff 5f8f7d9 -- <spec>` has 42 removed lines and 0 added; every removed line found in STATUS.md |
+| 2 | Extension-host test in CI | done | 8eda0dd, 5670fb9 | https://github.com/avery-w/Bobathon_FA26/actions/runs/40382729552 (vscode job green; annotation "4 of 4 extension tests passed") |
+| 3 | Node 20 matrix | done | 17f9dcf | same run: `build-test (node 20)` and `(node 22)` green; also run locally on Node 20.20.2 (122 tests) |
+| 4 | Demo history is five commits | done | c6b2ec2 | `git log` of a fresh demo repo shows 5 commits; `demo.test.ts` asserts it |
+| 5 | Live AI session | done | e1aa396 (README); session commit `9962e91` is in `~/prov-demo` | `prov explain src/refund.ts:13` shows model `unknown` (agent `IBM Bob`), not `granite-demo` |
+| 6 | Install paths | partial | db4fb38, 3ea3fe2 | README install block run in a fresh `env -i` shell and temp HOME: `prov --help` and `prov-mcp --repo . < /dev/null` work, `package:vsix` produced the .vsix. F5 not run (no IDE access) |
+| 7 | Report headline and bar | done | 6afa42a | tests pass; screenshot `docs/report-headline.png` |
+| 8 | Notes push | done | c6d2b94 | `packages/cli/test/sync.test.ts` passes |
+
+Not run: F5 in an IDE; the live session was recorded in `~/prov-demo` only, not synced anywhere. Notes reach GitHub only through `prov sync`, and the throwaway demo repo is never synced.
 
 The sections below were moved word for word out of the spec file. The first is the section as it stood before this move; the second is the original "Build progress" section from commit `5f8f7d9`.
 
