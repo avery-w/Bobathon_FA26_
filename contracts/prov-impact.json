@@ -1,0 +1,96 @@
+{
+  "decisions": [
+    {
+      "ref": "ADR-104",
+      "sessionIds": [
+        "01JH37HXG0E9TBXC1M8P280KE6",
+        "01JMFH97R0DD1KK4TNE20ZW43Q",
+        "01JMFHB2B047XZFAYP52HDM4R3",
+        "01JXJ7AMQ05W0QN90QQP5E1QZ4"
+      ],
+      "totals": {
+        "sessions": 4,
+        "survivingLines": 49,
+        "unreviewedLines": 33,
+        "rejectedLines": 2
+      },
+      "ranges": [
+        {
+          "file": "src/paymentClient.ts",
+          "start": 16,
+          "end": 17,
+          "sessionId": "01JXJ7AMQ05W0QN90QQP5E1QZ4",
+          "promptExcerpt": "Log card numbers for debugging.",
+          "status": "rejected"
+        },
+        {
+          "file": "src/refund.ts",
+          "start": 5,
+          "end": 11,
+          "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+          "promptExcerpt": "Add input validation to the refund endpoint",
+          "status": "unreviewed"
+        },
+        {
+          "file": "src/refund.ts",
+          "start": 15,
+          "end": 18,
+          "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+          "promptExcerpt": "Add input validation to the refund endpoint",
+          "status": "unreviewed"
+        },
+        {
+          "file": "src/refund.ts",
+          "start": 20,
+          "end": 20,
+          "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+          "promptExcerpt": "Add input validation to the refund endpoint",
+          "status": "unreviewed"
+        },
+        {
+          "file": "test/refund.test.ts",
+          "start": 1,
+          "end": 19,
+          "sessionId": "01JMFHB2B047XZFAYP52HDM4R3",
+          "promptExcerpt": "Write unit tests for refunds",
+          "status": "unreviewed"
+        }
+      ]
+    },
+    {
+      "ref": "CISO-2024-12",
+      "sessionIds": [
+        "01JXJ7AMQ05W0QN90QQP5E1QZ4"
+      ],
+      "totals": {
+        "sessions": 1,
+        "survivingLines": 2,
+        "unreviewedLines": 2,
+        "rejectedLines": 2
+      },
+      "ranges": [
+        {
+          "file": "src/paymentClient.ts",
+          "start": 16,
+          "end": 17,
+          "sessionId": "01JXJ7AMQ05W0QN90QQP5E1QZ4",
+          "promptExcerpt": "Log card numbers for debugging.",
+          "status": "rejected"
+        }
+      ]
+    },
+    {
+      "ref": "RCA-2024-88",
+      "sessionIds": [
+        "01JH37HXG0E9TBXC1M8P280KE6"
+      ],
+      "totals": {
+        "sessions": 1,
+        "survivingLines": 16,
+        "unreviewedLines": 0,
+        "rejectedLines": 0
+      },
+      "ranges": []
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "format": "md",
+  "out": null,
+  "report": {
+    "generatedAt": "2026-10-26T20:00:00.000Z",
+    "head": "0000000000000000000000000000000000000000",
+    "since": null,
+    "summary": {
+      "totalLines": 131,
+      "aiLines": 49,
+      "aiPercent": 37.4,
+      "unreviewedAiLines": 33,
+      "unreviewedAiPercent": 25.2,
+      "sessionsByStatus": {
+        "unreviewed": 2,
+        "approved": 1,
+        "rejected": 1
+      },
+      "sessionCount": 4
+    },
+    "unreviewed": [
+      {
+        "file": "src/refund.ts",
+        "start": 5,
+        "end": 11,
+        "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+        "promptExcerpt": "Add input validation to the refund endpoint",
+        "status": "unreviewed"
+      },
+      {
+        "file": "src/refund.ts",
+        "start": 15,
+        "end": 18,
+        "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+        "promptExcerpt": "Add input validation to the refund endpoint",
+        "status": "unreviewed"
+      },
+      {
+        "file": "src/refund.ts",
+        "start": 20,
+        "end": 20,
+        "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+        "promptExcerpt": "Add input validation to the refund endpoint",
+        "status": "unreviewed"
+      },
+      {
+        "file": "test/refund.test.ts",
+        "start": 1,
+        "end": 19,
+        "sessionId": "01JMFHB2B047XZFAYP52HDM4R3",
+        "promptExcerpt": "Write unit tests for refunds",
+        "status": "unreviewed"
+      }
+    ],
+    "rejected": [
+      {
+        "file": "src/paymentClient.ts",
+        "start": 16,
+        "end": 17,
+        "sessionId": "01JXJ7AMQ05W0QN90QQP5E1QZ4",
+        "promptExcerpt": "Log card numbers for debugging.",
+        "status": "rejected"
+      }
+    ],
+    "files": [
+      {
+        "file": "test/refund.test.ts",
+        "lines": 19,
+        "aiLines": 19,
+        "unreviewedAiLines": 19
+      },
+      {
+        "file": "src/refund.ts",
+        "lines": 22,
+        "aiLines": 12,
+        "unreviewedAiLines": 12
+      },
+      {
+        "file": "src/paymentClient.ts",
+        "lines": 30,
+        "aiLines": 18,
+        "unreviewedAiLines": 2
+      },
+      {
+        "file": ".gitignore",
+        "lines": 2,
+        "aiLines": 0,
+        "unreviewedAiLines": 0
+      },
+      {
+        "file": "package.json",
+        "lines": 7,
+        "aiLines": 0,
+        "unreviewedAiLines": 0
+      },
+      {
+        "file": "src/index.ts",
+        "lines": 10,
+        "aiLines": 0,
+        "unreviewedAiLines": 0
+      },
+      {
+        "file": "src/server.ts",
+        "lines": 22,
+        "aiLines": 0,
+        "unreviewedAiLines": 0
+      },
+      {
+        "file": "src/types.ts",
+        "lines": 19,
+        "aiLines": 0,
+        "unreviewedAiLines": 0
+      }
+    ],
+    "sessions": [
+      {
+        "id": "01JH37HXG0E9TBXC1M8P280KE6",
+        "createdAt": "2025-01-08T15:12:00Z",
+        "agent": "IBM Bob",
+        "model": "granite-demo",
+        "promptExcerpt": "Add retry with exponential backoff to the payment client.",
+        "status": "approved",
+        "reviewer": "dana",
+        "comment": "Backoff matches our retry policy.",
+        "survivingLines": 16,
+        "decisionRefs": [
+          "RCA-2024-88",
+          "ADR-104"
+        ]
+      },
+      {
+        "id": "01JMFH97R0DD1KK4TNE20ZW43Q",
+        "createdAt": "2025-02-19T16:40:00Z",
+        "agent": "IBM Bob",
+        "model": "granite-demo",
+        "promptExcerpt": "Add input validation to the refund endpoint",
+        "status": "unreviewed",
+        "reviewer": null,
+        "comment": null,
+        "survivingLines": 12,
+        "decisionRefs": [
+          "ADR-104"
+        ]
+      },
+      {
+        "id": "01JMFHB2B047XZFAYP52HDM4R3",
+        "createdAt": "2025-02-19T16:41:00Z",
+        "agent": "IBM Bob",
+        "model": "granite-demo",
+        "promptExcerpt": "Write unit tests for refunds",
+        "status": "unreviewed",
+        "reviewer": null,
+        "comment": null,
+        "survivingLines": 19,
+        "decisionRefs": [
+          "ADR-104"
+        ]
+      },
+      {
+        "id": "01JXJ7AMQ05W0QN90QQP5E1QZ4",
+        "createdAt": "2025-06-12T14:05:00Z",
+        "agent": "IBM Bob",
+        "model": "granite-demo",
+        "promptExcerpt": "Log card numbers for debugging.",
+        "status": "rejected",
+        "reviewer": "dana",
+        "comment": "PII — must not log card data.",
+        "survivingLines": 2,
+        "decisionRefs": [
+          "ADR-104",
+          "CISO-2024-12"
+        ]
+      }
+    ]
+  }
+}

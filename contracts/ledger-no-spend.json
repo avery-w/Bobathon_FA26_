@@ -1,0 +1,186 @@
+{
+  "status": "ok",
+  "repoName": "payments-repo",
+  "head": "0000000000000000000000000000000000000000",
+  "unit": "Bobcoins",
+  "spendAvailable": false,
+  "summary": {
+    "totalLines": 131,
+    "aiLines": 49,
+    "aiPercent": 37.4,
+    "unreviewedAiLines": 33,
+    "unreviewedAiPercent": 25.2
+  },
+  "rows": [
+    {
+      "sessionId": "01JH37HXG0E9TBXC1M8P280KE6",
+      "createdAt": "2025-01-08T15:12:00Z",
+      "agent": "IBM Bob",
+      "model": "granite-demo",
+      "promptExcerpt": "Add retry with exponential backoff to the payment client.",
+      "status": "approved",
+      "reviewer": "dana",
+      "comment": "Backoff matches our retry policy.",
+      "survivingLines": 16,
+      "decisionRefs": [
+        "RCA-2024-88",
+        "ADR-104"
+      ],
+      "cost": null,
+      "taskId": null,
+      "match": "none"
+    },
+    {
+      "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+      "createdAt": "2025-02-19T16:40:00Z",
+      "agent": "IBM Bob",
+      "model": "granite-demo",
+      "promptExcerpt": "Add input validation to the refund endpoint",
+      "status": "unreviewed",
+      "reviewer": null,
+      "comment": null,
+      "survivingLines": 12,
+      "decisionRefs": [
+        "ADR-104"
+      ],
+      "cost": null,
+      "taskId": null,
+      "match": "none"
+    },
+    {
+      "sessionId": "01JMFHB2B047XZFAYP52HDM4R3",
+      "createdAt": "2025-02-19T16:41:00Z",
+      "agent": "IBM Bob",
+      "model": "granite-demo",
+      "promptExcerpt": "Write unit tests for refunds",
+      "status": "unreviewed",
+      "reviewer": null,
+      "comment": null,
+      "survivingLines": 19,
+      "decisionRefs": [
+        "ADR-104"
+      ],
+      "cost": null,
+      "taskId": null,
+      "match": "none"
+    },
+    {
+      "sessionId": "01JXJ7AMQ05W0QN90QQP5E1QZ4",
+      "createdAt": "2025-06-12T14:05:00Z",
+      "agent": "IBM Bob",
+      "model": "granite-demo",
+      "promptExcerpt": "Log card numbers for debugging.",
+      "status": "rejected",
+      "reviewer": "dana",
+      "comment": "PII — must not log card data.",
+      "survivingLines": 2,
+      "decisionRefs": [
+        "ADR-104",
+        "CISO-2024-12"
+      ],
+      "cost": null,
+      "taskId": null,
+      "match": "none"
+    }
+  ],
+  "totals": {
+    "aiCost": null,
+    "approvedCost": null,
+    "unreviewedCost": null,
+    "rejectedCost": null,
+    "atRiskCost": null,
+    "costPerSurvivingLine": null,
+    "unmatchedSessions": 4
+  },
+  "impacts": [
+    {
+      "ref": "ADR-104",
+      "sessionIds": [
+        "01JH37HXG0E9TBXC1M8P280KE6",
+        "01JMFH97R0DD1KK4TNE20ZW43Q",
+        "01JMFHB2B047XZFAYP52HDM4R3",
+        "01JXJ7AMQ05W0QN90QQP5E1QZ4"
+      ],
+      "totals": {
+        "sessions": 4,
+        "survivingLines": 49,
+        "unreviewedLines": 33,
+        "rejectedLines": 2
+      },
+      "ranges": [
+        {
+          "file": "src/paymentClient.ts",
+          "start": 16,
+          "end": 17,
+          "sessionId": "01JXJ7AMQ05W0QN90QQP5E1QZ4",
+          "status": "rejected"
+        },
+        {
+          "file": "src/refund.ts",
+          "start": 5,
+          "end": 11,
+          "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+          "status": "unreviewed"
+        },
+        {
+          "file": "src/refund.ts",
+          "start": 15,
+          "end": 18,
+          "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+          "status": "unreviewed"
+        },
+        {
+          "file": "src/refund.ts",
+          "start": 20,
+          "end": 20,
+          "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+          "status": "unreviewed"
+        },
+        {
+          "file": "test/refund.test.ts",
+          "start": 1,
+          "end": 19,
+          "sessionId": "01JMFHB2B047XZFAYP52HDM4R3",
+          "status": "unreviewed"
+        }
+      ],
+      "cost": null
+    },
+    {
+      "ref": "CISO-2024-12",
+      "sessionIds": [
+        "01JXJ7AMQ05W0QN90QQP5E1QZ4"
+      ],
+      "totals": {
+        "sessions": 1,
+        "survivingLines": 2,
+        "unreviewedLines": 2,
+        "rejectedLines": 2
+      },
+      "ranges": [
+        {
+          "file": "src/paymentClient.ts",
+          "start": 16,
+          "end": 17,
+          "sessionId": "01JXJ7AMQ05W0QN90QQP5E1QZ4",
+          "status": "rejected"
+        }
+      ],
+      "cost": null
+    },
+    {
+      "ref": "RCA-2024-88",
+      "sessionIds": [
+        "01JH37HXG0E9TBXC1M8P280KE6"
+      ],
+      "totals": {
+        "sessions": 1,
+        "survivingLines": 16,
+        "unreviewedLines": 0,
+        "rejectedLines": 0
+      },
+      "ranges": [],
+      "cost": null
+    }
+  ]
+}

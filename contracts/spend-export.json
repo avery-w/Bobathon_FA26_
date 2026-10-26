@@ -1,0 +1,40 @@
+{
+  "unit": "Bobcoins",
+  "generatedAt": "2026-10-26T20:00:00",
+  "matchRule": "time-window",
+  "sessions": [
+    {
+      "sessionId": "01JH37HXG0E9TBXC1M8P280KE6",
+      "taskId": "demo-task-A",
+      "cost": 3.42,
+      "match": "time-window",
+      "sharedWith": 1
+    },
+    {
+      "sessionId": "01JMFH97R0DD1KK4TNE20ZW43Q",
+      "taskId": "demo-task-B",
+      "cost": 2.1,
+      "match": "time-window",
+      "sharedWith": 1
+    },
+    {
+      "sessionId": "01JMFHB2B047XZFAYP52HDM4R3",
+      "taskId": "demo-task-C",
+      "cost": 1.35,
+      "match": "time-window",
+      "sharedWith": 1
+    },
+    {
+      "sessionId": "01JXJ7AMQ05W0QN90QQP5E1QZ4",
+      "taskId": "demo-task-D",
+      "cost": 0.48,
+      "match": "time-window",
+      "sharedWith": 1
+    }
+  ],
+  "totals": {
+    "matchedCost": 7.35,
+    "matchedSessions": 4,
+    "unmatchedSessions": 0
+  }
+}
