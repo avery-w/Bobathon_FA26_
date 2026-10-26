@@ -38,7 +38,7 @@ const statusOfLine = (b: Blame, n: number): string | undefined => {
 };
 
 describe("examples/demo-repo.sh", () => {
-  it("builds the five-step history (plus the review commit)", () => {
+  it("builds the five-step history, exactly five commits", () => {
     const log = execFileSync("git", ["log", "--format=%s", "--reverse"], { cwd: demo, env: env(), encoding: "utf8" }).trim().split("\n");
     expect(log).toEqual([
       "feat: payments service skeleton",
@@ -46,7 +46,6 @@ describe("examples/demo-repo.sh", () => {
       "feat: validate refunds and add tests",
       "fix: clearer refundable balance check",
       "chore: debug logging for charges",
-      "chore: record review decisions",
     ]);
     const sources = execFileSync("git", ["ls-files", "src"], { cwd: demo, env: env(), encoding: "utf8" }).trim().split("\n");
     expect(sources).toHaveLength(5);

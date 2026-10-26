@@ -116,6 +116,8 @@ Every command takes `--json` (machine-readable output) and `--repo <path>` (defa
 | 4 | Human: rewrites three lines of B's code | none (those lines become human-attributed) | none |
 | 5 | AI: "Log card numbers for debugging." | D | rejected by `dana`: "PII — must not log card data." |
 
+The reviews are recorded just before the commits that carry them, so the history is exactly these five commits.
+
 ```bash
 pnpm build                        # the script uses the built CLI if `prov` is not on PATH
 bash examples/demo-repo.sh        # or: bash examples/demo-repo.sh my-folder

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Builds ./demo-repo (or the folder given as $1): a small TypeScript payments service with the
 # five-commit history from the Provenance demo. No model calls: sessions are recorded with `prov record`.
+# Reviews by dana are applied with `prov review` just before the commit that carries the session, so the
+# history stays at exactly five commits (DECISIONS #35).
 #
 #   1. human commit      payments service (5 source files)
 #   2. AI, session A     "Add retry with exponential backoff to the payment client."   approved by dana
@@ -183,6 +185,8 @@ export class PaymentClient {
   }
 }
 EOF
+# dana reviews the change before it is committed, so the review lands in the same commit as the session file.
+prov review "$A" --approve --reviewer dana --comment "Backoff matches our retry policy." >/dev/null
 commit "feat: retry charges with exponential backoff
 
 Provenance-Session: $A"
@@ -275,14 +279,10 @@ const add = anchor +
   "    console.log(\"charging card\", req.cardNumber, req.amount);\n";
 fs.writeFileSync(f, s.replace(anchor, add));
 '
+prov review "$D" --reject --reviewer dana --comment "PII — must not log card data." >/dev/null
 commit "chore: debug logging for charges
 
 Provenance-Session: $D"
-
-# --- reviews by dana, committed with the sessions -------------------------------------------------------------
-prov review "$A" --approve --reviewer dana --comment "Backoff matches our retry policy." >/dev/null
-prov review "$D" --reject --reviewer dana --comment "PII — must not log card data." >/dev/null
-commit "chore: record review decisions"
 
 echo
 echo "Demo repo ready: $(pwd)"
